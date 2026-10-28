@@ -17,7 +17,7 @@ Run `./gradlew run` to start the program.
 If you write tests, you can run `./gradlew test` to run them.
 
 
-## Class diagramExpand commentComment on line R19Resolved
+## Class diagram
 
 Legend: `-` private, `+` public, `#` protected, `$` static, `*` abstract (italic).
 
@@ -77,7 +77,6 @@ classDiagram
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
         +describeActions() String
-        +toString() String
     }
 
     class Mage {
@@ -86,7 +85,7 @@ classDiagram
         +Mage(String name)
         +getMana() int
         +getMaxMana() int
-        +setMana(int mana) void
+        -setMana(int mana) void
         +onTurnStart() void
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
@@ -100,7 +99,7 @@ classDiagram
         +Rogue(String name)
         +getEnergy() int
         +getMaxEnergy() int
-        +setEnergy(int energy) void
+        -setEnergy(int energy) void
         +onTurnStart() void
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
@@ -113,7 +112,7 @@ classDiagram
         -Random RANDOM$
         -CombatRules()
         +calculateDamage(int attackerPower, double abilityModifier, int targetDefense)$ int
-        +getFirstAttacker(Character c1, Character c2)$ Character
+        +getFirstAttacker(int speed1, int speed2)$ boolean
         +applyDamageVariance(int baseDamage)$ int
     }
 
@@ -122,11 +121,13 @@ classDiagram
     Character <|-- Rogue
 
     Main ..> BattleEngine : creates
-    Main ..> Character : creates
+    Main ..> Warrior : creates
+    Main ..> Mage : creates
+    Main ..> Rogue : creates
+    Main ..> Character : uses
     BattleEngine ..> Character : uses
     BattleEngine ..> CombatRules : uses
     Warrior ..> CombatRules : uses
     Mage ..> CombatRules : uses
     Rogue ..> CombatRules : uses
 ```
-+

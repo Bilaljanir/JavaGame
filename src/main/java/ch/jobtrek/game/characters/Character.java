@@ -9,6 +9,9 @@ public class Character {
     private int speed;
 
     public Character(String name, int maxHp, int power, int defense, int speed) {
+        if (maxHp < 0) {
+            throw new IllegalArgumentException("maxHp must not be negative");
+        }
         this.name = name;
         this.maxHp = maxHp;
         this.power = power;
@@ -52,6 +55,9 @@ public class Character {
     }
 
     public void takeDamage(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("amount must not be negative");
+        }
         setHp(hp - amount);
     }
 

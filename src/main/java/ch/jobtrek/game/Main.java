@@ -1,11 +1,18 @@
 package ch.jobtrek.game;
 
+import ch.jobtrek.game.characters.Character;
 
-/**
- * Java main entrypoint class
- */
 public class Main {
     static void main() {
-        System.out.println("Hello World! Let's build a game with OOP.");
+        Character warrior = new Character("Warrior", 100, 15, 10, 8);
+        System.out.println(warrior);
+
+        for (int i = 0; i < 5; i++) {
+            warrior.takeDamage(30);
+            System.out.println(warrior + " alive: " + warrior.isAlive());
+        }
+
+        warrior.setHp(500);
+        System.out.println(warrior);
     }
 }

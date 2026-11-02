@@ -1,6 +1,6 @@
 package ch.jobtrek.game.characters;
 
-public class Character {
+public abstract class Character {
     private String name;
     private int hp;
     private int maxHp;
@@ -64,6 +64,15 @@ public class Character {
     public boolean isAlive() {
         return hp > 0;
     }
+
+    public void onTurnStart() {
+    }
+
+    public abstract void executeAttack(Character target);
+
+    public abstract void useSpecialAbility(Character target);
+
+    public abstract String describeActions();
 
     @Override
     public String toString() {

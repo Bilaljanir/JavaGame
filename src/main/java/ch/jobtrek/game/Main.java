@@ -7,16 +7,28 @@ import ch.jobtrek.game.characters.Warrior;
 
 public class Main {
     static void main() {
-        Character warrior = new Warrior("Conan");
-        Character mage = new Mage("Merlin");
+        Character player = new Warrior("Aragon");
+        Character enemy = new Mage("Gandalf");
         Character rogue = new Rogue("Shadow");
 
-        System.out.println(warrior);
-        System.out.println(mage);
-        System.out.println(rogue);
+        player.executeAttack(enemy);
+        enemy.executeAttack(player);
+        rogue.executeAttack(player);
+        System.out.println();
 
-        warrior.executeAttack(mage);
-        mage.useSpecialAbility(rogue);
-        System.out.println(rogue.describeActions());
+        player.useSpecialAbility(enemy);
+        for (int i = 0; i < 4; i++) {
+            enemy.useSpecialAbility(player);
+        }
+        for (int i = 0; i < 3; i++) {
+            rogue.useSpecialAbility(enemy);
+        }
+        System.out.println();
+
+        Character[] characters = {player, enemy, rogue};
+        for (Character c : characters) {
+            c.onTurnStart();
+            System.out.println(c);
+        }
     }
 }

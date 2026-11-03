@@ -1,6 +1,9 @@
 package ch.jobtrek.game.characters;
 
 public class Rogue extends Character {
+    private static final int BACKSTAB_ENERGY_COST = 40;
+    private static final int ENERGY_REGEN = 15;
+
     private int energy;
     private int maxEnergy;
 
@@ -29,17 +32,36 @@ public class Rogue extends Character {
     }
 
     @Override
-    public void executeAttack(Character target) {
-        System.out.println(getName() + " attacks " + target.getName() + ".");
+    public void onTurnStart() {
+        setEnergy(energy + ENERGY_REGEN);
     }
 
+    @Override
+    public void executeAttack(Character target) {
+        int damage = Math.max(1, getPower() - target.getDefense());
+        if (getSpeed() > target.getSpeed()) {
+            damage = (int) (damage * 1.5);
+        }
+        target.takeDamage(damage);
+        System.out.println(getName() + " slashes " + target.getName() + " with daggers for " + damage + " damage!");
+    }
+
+    @Override
     public void useSpecialAbility(Character target) {
-        System.out.println(getName() + " uses Backstab on " + target.getName() + ".");
+        if (energy < BACKSTAB_ENERGY_COST) {
+            System.out.println("Not enough energy! Using basic attack instead.");
+            executeAttack(target);
+            return;
+        }
+        setEnergy(energy - BACKSTAB_ENERGY_COST);
+        int damage = (int) (Math.max(1, getPower() - target.getDefense()) * 2.5);
+        target.takeDamage(damage);
+        System.out.println(getName() + " backstabs " + target.getName() + " for " + damage + " critical damage!");
     }
 
     @Override
     public String describeActions() {
-        return "1. Attack  2. Backstab";
+        return "1. Dagger attack  2. Backstab (costs " + BACKSTAB_ENERGY_COST + " energy)";
     }
 
     @Override

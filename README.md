@@ -108,11 +108,11 @@ classDiagram
     }
 
     class CombatRules {
-        <<final>>
+        <<final>>[settings.gradle.kts](settings.gradle.kts)
         -Random RANDOM$
         -CombatRules()
         +calculateDamage(int attackerPower, double abilityModifier, int targetDefense)$ int
-        +getFirstAttacker(int speed1, int speed2)$ boolean
+        +getFirstAttacker(Character c1, Character c2)$ Character
         +applyDamageVariance(int baseDamage)$ int
     }
 
@@ -130,4 +130,5 @@ classDiagram
     Warrior ..> CombatRules : uses
     Mage ..> CombatRules : uses
     Rogue ..> CombatRules : uses
+    CombatRules ..> Character : uses
 ```

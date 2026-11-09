@@ -72,6 +72,8 @@ public abstract class Character {
 
     public abstract void useSpecialAbility(Character target);
 
+    public abstract boolean canUseSpecialAbility();
+
     public abstract String describeActions();
 
     @Override

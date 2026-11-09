@@ -56,7 +56,7 @@ public class Mage extends Character {
 
     @Override
     public void useSpecialAbility(Character target) {
-        if (mana < FIREBALL_MANA_COST) {
+        if (!canUseSpecialAbility()) {
             System.out.println("Not enough mana! Using basic attack instead.");
             basicAttack(target);
             return;
@@ -65,6 +65,11 @@ public class Mage extends Character {
         int damage = CombatRules.calculateDamage(getPower(), FIREBALL_MODIFIER, target.getDefense());
         target.takeDamage(damage);
         System.out.println(getName() + " casts Fireball on " + target.getName() + " for " + damage + " damage!");
+    }
+
+    @Override
+    public boolean canUseSpecialAbility() {
+        return mana >= FIREBALL_MANA_COST;
     }
 
     private void basicAttack(Character target) {

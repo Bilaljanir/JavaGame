@@ -27,6 +27,11 @@ public class Warrior extends Character {
     }
 
     @Override
+    public boolean canUseSpecialAbility() {
+        return getHp() > POWER_STRIKE_HP_COST;
+    }
+
+    @Override
     public String describeActions() {
         return "1. Sword attack  2. Power Strike (costs " + POWER_STRIKE_HP_COST + " HP)";
     }

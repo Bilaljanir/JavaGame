@@ -1,6 +1,8 @@
 package ch.jobtrek.game.characters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,6 +71,16 @@ class RogueTest {
 
         assertEquals(20, rogue.getEnergy());
         assertEquals(21, hpBefore - target.getHp());
+    }
+
+    @Test
+    void canUseBackstabOnlyWithEnoughEnergy() {
+        assertTrue(rogue.canUseSpecialAbility());
+
+        rogue.useSpecialAbility(target);
+        rogue.useSpecialAbility(target); // 20
+
+        assertFalse(rogue.canUseSpecialAbility());
     }
 
     @Test

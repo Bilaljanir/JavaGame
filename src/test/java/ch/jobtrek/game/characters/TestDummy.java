@@ -19,6 +19,11 @@ class TestDummy extends Character {
     }
 
     @Override
+    public boolean canUseSpecialAbility() {
+        return false;
+    }
+
+    @Override
     public String describeActions() {
         return "";
     }

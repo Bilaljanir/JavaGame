@@ -1,9 +1,13 @@
 package ch.jobtrek.game.characters;
 
+import ch.jobtrek.game.rules.CombatRules;
+
 public class Mage extends Character {
     private static final int ATTACK_MANA_COST = 10;
     private static final int FIREBALL_MANA_COST = 30;
     private static final int MANA_REGEN = 10;
+    private static final double FIREBALL_MODIFIER = 2.0;
+    private static final double STAFF_MODIFIER = 0.5;
 
     private int mana;
     private int maxMana;
@@ -45,7 +49,7 @@ public class Mage extends Character {
             return;
         }
         setMana(mana - ATTACK_MANA_COST);
-        int damage = Math.max(1, getPower() - target.getDefense());
+        int damage = CombatRules.calculateDamage(getPower(), 1.0, target.getDefense());
         target.takeDamage(damage);
         System.out.println(getName() + " hits " + target.getName() + " with a magic bolt for " + damage + " damage!");
     }
@@ -58,13 +62,13 @@ public class Mage extends Character {
             return;
         }
         setMana(mana - FIREBALL_MANA_COST);
-        int damage = Math.max(1, getPower() * 2 - target.getDefense());
+        int damage = CombatRules.calculateDamage(getPower(), FIREBALL_MODIFIER, target.getDefense());
         target.takeDamage(damage);
         System.out.println(getName() + " casts Fireball on " + target.getName() + " for " + damage + " damage!");
     }
 
     private void basicAttack(Character target) {
-        int damage = Math.max(1, getPower() / 2 - target.getDefense());
+        int damage = CombatRules.calculateDamage(getPower(), STAFF_MODIFIER, target.getDefense());
         target.takeDamage(damage);
         System.out.println(getName() + " hits " + target.getName() + " with a staff for " + damage + " damage!");
     }

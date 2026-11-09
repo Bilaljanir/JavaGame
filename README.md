@@ -41,8 +41,10 @@ classDiagram
         -int round
         +BattleEngine(Character player, Character opponent, Scanner scanner)
         +startBattle() void
+        -takeTurn(Character character) void
         -playerTurn() void
         -opponentTurn() void
+        -readChoice() int
         -displayStatus() void
         -displayResult() void
     }
@@ -69,6 +71,7 @@ classDiagram
         +toString() String
         +executeAttack(Character target)* void
         +useSpecialAbility(Character target)* void
+        +canUseSpecialAbility()* boolean
         +describeActions()* String
     }
 
@@ -76,6 +79,7 @@ classDiagram
         +Warrior(String name)
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
+        +canUseSpecialAbility() boolean
         +describeActions() String
     }
 
@@ -89,6 +93,7 @@ classDiagram
         +onTurnStart() void
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
+        +canUseSpecialAbility() boolean
         +describeActions() String
         +toString() String
     }
@@ -103,6 +108,7 @@ classDiagram
         +onTurnStart() void
         +executeAttack(Character target) void
         +useSpecialAbility(Character target) void
+        +canUseSpecialAbility() boolean
         +describeActions() String
         +toString() String
     }

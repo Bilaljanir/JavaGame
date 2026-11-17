@@ -23,9 +23,9 @@ public final class CombatRules {
         }
         return RANDOM.nextBoolean() ? c1 : c2;
     }
+
     public static int applyDamageVariance(int baseDamage) {
         double factor = 1 + RANDOM.nextDouble(-DAMAGE_VARIANCE, DAMAGE_VARIANCE);
         return (int) Math.round(baseDamage * factor);
     }
-
 }

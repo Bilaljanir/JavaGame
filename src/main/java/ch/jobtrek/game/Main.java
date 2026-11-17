@@ -2,33 +2,16 @@ package ch.jobtrek.game;
 
 import ch.jobtrek.game.characters.Character;
 import ch.jobtrek.game.characters.Mage;
-import ch.jobtrek.game.characters.Rogue;
 import ch.jobtrek.game.characters.Warrior;
+import ch.jobtrek.game.engine.BattleEngine;
+import java.util.Scanner;
 
 public class Main {
     static void main() {
+        Scanner scanner = new Scanner(System.in);
         Character player = new Warrior("Aragon");
-        Character enemy = new Mage("Gandalf");
-        Character rogue = new Rogue("Shadow");
+        Character opponent = new Mage("Gandalf");
 
-        player.executeAttack(enemy);
-        enemy.executeAttack(player);
-        rogue.executeAttack(player);
-        System.out.println();
-
-        player.useSpecialAbility(enemy);
-        for (int i = 0; i < 4; i++) {
-            enemy.useSpecialAbility(player);
-        }
-        for (int i = 0; i < 3; i++) {
-            rogue.useSpecialAbility(enemy);
-        }
-        System.out.println();
-
-        Character[] characters = {player, enemy, rogue};
-        for (Character c : characters) {
-            c.onTurnStart();
-            System.out.println(c);
-        }
+        new BattleEngine(player, opponent, scanner).startBattle();
     }
 }

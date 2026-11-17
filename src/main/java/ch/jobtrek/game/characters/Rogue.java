@@ -50,7 +50,7 @@ public class Rogue extends Character {
 
     @Override
     public void useSpecialAbility(Character target) {
-        if (energy < BACKSTAB_ENERGY_COST) {
+        if (!canUseSpecialAbility()) {
             System.out.println("Not enough energy! Using basic attack instead.");
             executeAttack(target);
             return;
@@ -59,6 +59,11 @@ public class Rogue extends Character {
         int damage = CombatRules.calculateDamage(getPower(), BACKSTAB_MODIFIER, target.getDefense());
         target.takeDamage(damage);
         System.out.println(getName() + " backstabs " + target.getName() + " for " + damage + " critical damage!");
+    }
+
+    @Override
+    public boolean canUseSpecialAbility() {
+        return energy >= BACKSTAB_ENERGY_COST;
     }
 
     @Override

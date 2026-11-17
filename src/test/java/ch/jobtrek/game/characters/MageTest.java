@@ -1,6 +1,8 @@
 package ch.jobtrek.game.characters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,6 +82,15 @@ class MageTest {
 
         assertEquals(20, mage.getMana());
         assertEquals(10, hpBefore - target.getHp());
+    }
+
+    @Test
+    void canUseFireballOnlyWithEnoughMana() {
+        assertTrue(mage.canUseSpecialAbility());
+
+        drainToZero();
+
+        assertFalse(mage.canUseSpecialAbility());
     }
 
     @Test

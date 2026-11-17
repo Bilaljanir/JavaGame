@@ -2,6 +2,7 @@ package ch.jobtrek.game.characters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,15 @@ class WarriorTest {
         assertEquals(0, warrior.getHp());
         assertFalse(warrior.isAlive());
         assertEquals(24, target.damageTaken());
+    }
+
+    @Test
+    void canUsePowerStrikeOnlyWhenItWouldNotBeFatal() {
+        assertTrue(warrior.canUseSpecialAbility());
+
+        warrior.setHp(10);
+
+        assertFalse(warrior.canUseSpecialAbility());
     }
 
     @Test

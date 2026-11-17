@@ -80,7 +80,8 @@ public class Mage extends Character {
 
     @Override
     public String describeActions() {
-        return "1. Magic bolt (costs " + ATTACK_MANA_COST + " mana)  2. Fireball (costs " + FIREBALL_MANA_COST + " mana)";
+        return "1. Magic bolt (costs " + ATTACK_MANA_COST + " mana)  2. Fireball (costs " + FIREBALL_MANA_COST
+                + " mana)";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ch.jobtrek.game.engine;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ch.jobtrek.game.characters.Character;
 import ch.jobtrek.game.characters.Mage;
@@ -29,5 +30,15 @@ class BattleEngineTest {
         new BattleEngine(player, opponent, new Scanner("abc\n5\n" + "2\n".repeat(50))).startBattle();
 
         assertFalse(player.isAlive() && opponent.isAlive());
+    }
+
+    @Test
+    void battleStopsWithoutCrashingWhenInputIsClosed() {
+        Character player = new Warrior("Conan");
+        Character opponent = new Mage("Merlin");
+
+        new BattleEngine(player, opponent, new Scanner("1\n")).startBattle();
+
+        assertTrue(player.isAlive() && opponent.isAlive());
     }
 }

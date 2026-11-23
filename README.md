@@ -26,12 +26,19 @@ classDiagram
     direction TB
 
     class Main {
+        -Random RANDOM$
+        -String[] OPPONENT_NAMES$
+        -int CLASS_COUNT$
         +main(String[] args)$ void
         -displayWelcome()$ void
         -selectCharacter(Scanner scanner)$ Character
+        -readClassChoice(Scanner scanner)$ int
         -createOpponent(Character player)$ Character
+        -createCharacter(int choice, String name)$ Character
+        -describeClass(int choice)$ String
         -askPlayAgain(Scanner scanner)$ boolean
         -displayGoodbye()$ void
+        -readLine(Scanner scanner)$ String
     }
 
     class BattleEngine {

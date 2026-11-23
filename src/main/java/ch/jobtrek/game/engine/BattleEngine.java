@@ -120,6 +120,9 @@ public class BattleEngine {
         } else {
             System.out.println("DRAW! Both fighters have fallen.");
         }
+        System.out.println("Rounds played: " + (round - 1));
+        displayHpLeft(player);
+        displayHpLeft(opponent);
         System.out.println(SEPARATOR);
     }
 }

@@ -32,7 +32,6 @@ classDiagram
         +main(String[] args)$ void
         -displayWelcome()$ void
         -selectCharacter(Scanner scanner)$ Character
-        -readClassChoice(Scanner scanner)$ int
         -createOpponent(Character player)$ Character
         -createCharacter(int choice, String name)$ Character
         -describeClass(int choice)$ String
@@ -53,10 +52,15 @@ classDiagram
         -takeTurn(Character character) void
         -playerTurn() void
         -opponentTurn() void
-        -readChoice() int
         -displayHpLeft(Character character) void
         -displayStatus() void
         -displayResult() void
+    }
+
+    class InputValidator {
+        <<final>>
+        -InputValidator()
+        +readValidInt(Scanner scanner, int min, int max)$ int
     }
 
     class Character {
@@ -124,7 +128,7 @@ classDiagram
     }
 
     class CombatRules {
-        <<final>>[settings.gradle.kts](settings.gradle.kts)
+        <<final>>
         -Random RANDOM$
         -CombatRules()
         +calculateDamage(int attackerPower, double abilityModifier, int targetDefense)$ int
@@ -143,6 +147,8 @@ classDiagram
     Main ..> Character : uses
     BattleEngine ..> Character : uses
     BattleEngine ..> CombatRules : uses
+    Main ..> InputValidator : uses
+    BattleEngine ..> InputValidator : uses
     Warrior ..> CombatRules : uses
     Mage ..> CombatRules : uses
     Rogue ..> CombatRules : uses

@@ -5,6 +5,8 @@ import ch.jobtrek.game.characters.Mage;
 import ch.jobtrek.game.characters.Rogue;
 import ch.jobtrek.game.characters.Warrior;
 import ch.jobtrek.game.engine.BattleEngine;
+import ch.jobtrek.game.input.InputValidator;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,13 +18,18 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         displayWelcome();
-        boolean playAgain = true;
-        while (playAgain) {
-            Character player = selectCharacter(scanner);
-            Character opponent = createOpponent(player);
-            BattleEngine engine = new BattleEngine(player, opponent, scanner);
-            engine.startBattle();
-            playAgain = askPlayAgain(scanner);
+        try {
+            boolean playAgain = true;
+            while (playAgain) {
+                Character player = selectCharacter(scanner);
+                Character opponent = createOpponent(player);
+                BattleEngine engine = new BattleEngine(player, opponent, scanner);
+                engine.startBattle();
+                playAgain = askPlayAgain(scanner);
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println();
+            System.out.println("No more input.");
         }
         displayGoodbye();
     }
@@ -47,7 +54,7 @@ public class Main {
         }
         System.out.println();
         System.out.println("Choose your class (1-" + CLASS_COUNT + "):");
-        int choice = readClassChoice(scanner);
+        int choice = InputValidator.readValidInt(scanner, 1, CLASS_COUNT);
 
         System.out.println("Enter a name for your character:");
         String name = readLine(scanner);
@@ -56,18 +63,6 @@ public class Main {
             name = readLine(scanner);
         }
         return createCharacter(choice, name);
-    }
-
-    private static int readClassChoice(Scanner scanner) {
-        while (true) {
-            String input = readLine(scanner);
-            for (int choice = 1; choice <= CLASS_COUNT; choice++) {
-                if (input.equals(String.valueOf(choice))) {
-                    return choice;
-                }
-            }
-            System.out.println("Invalid choice, please enter a number between 1 and " + CLASS_COUNT + ".");
-        }
     }
 
     private static Character createOpponent(Character player) {
@@ -122,10 +117,6 @@ public class Main {
 
     private static String readLine(Scanner scanner) {
         System.out.print("> ");
-        if (!scanner.hasNextLine()) {
-            displayGoodbye();
-            System.exit(0);
-        }
         return scanner.nextLine().trim();
     }
 }

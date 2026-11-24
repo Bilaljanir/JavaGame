@@ -1,12 +1,13 @@
 package ch.jobtrek.game.engine;
 
 import ch.jobtrek.game.characters.Character;
+import ch.jobtrek.game.input.InputValidator;
 import ch.jobtrek.game.rules.CombatRules;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class BattleEngine {
     private static final String SEPARATOR = "=".repeat(40);
-    private static final int NO_INPUT = 0;
 
     private final Character player;
     private final Character opponent;
@@ -56,8 +57,10 @@ public class BattleEngine {
         displayStatus();
         System.out.println("Your turn! Choose an action:");
         System.out.println(player.describeActions());
-        int choice = readChoice();
-        if (choice == NO_INPUT) {
+        int choice;
+        try {
+            choice = InputValidator.readValidInt(scanner, 1, 2);
+        } catch (NoSuchElementException e) {
             System.out.println();
             System.out.println("No more input: " + player.getName() + " flees the battle!");
             playerFled = true;
@@ -79,23 +82,6 @@ public class BattleEngine {
             opponent.executeAttack(player);
         }
         displayHpLeft(player);
-    }
-
-    private int readChoice() {
-        while (true) {
-            System.out.print("> ");
-            if (!scanner.hasNextLine()) {
-                return NO_INPUT;
-            }
-            String input = scanner.nextLine().trim();
-            if (input.equals("1")) {
-                return 1;
-            }
-            if (input.equals("2")) {
-                return 2;
-            }
-            System.out.println("Invalid choice, please enter 1 or 2.");
-        }
     }
 
     private void displayHpLeft(Character character) {
